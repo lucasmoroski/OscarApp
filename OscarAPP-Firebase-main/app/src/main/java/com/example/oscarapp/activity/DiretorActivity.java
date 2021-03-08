@@ -3,6 +3,7 @@ package com.example.oscarapp.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.assist.AssistStructure;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -100,6 +101,16 @@ public class DiretorActivity extends AppCompatActivity {
                 int idradio = radioGroup.getCheckedRadioButtonId();
                 RadioButton radioescolhaD = (RadioButton) findViewById(idradio);
                 int rescolhaD = radioescolhaD.getId();
+                String nomeD = radioescolhaD.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), ConfirmarActivity.class);
+                Bundle param = new Bundle();
+
+                param.putInt("id",rescolhaD);
+                param.putString("nome", nomeD);
+
+                intent.putExtras(param);
+                startActivity(intent);
+
             }
         });
 

@@ -48,7 +48,6 @@ public class ListaFilme extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
 
-
         String urlCompleta = "http://wecodecorp.com.br/ufpr/filme";
 
         StringRequest filmeRequest = new StringRequest(Request.Method.GET, urlCompleta, new Response.Listener<String>() {
