@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.oscarapp.R;
 import com.example.oscarapp.model.Usuario;
 import com.example.oscarapp.model.Voto;
+import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
@@ -28,18 +29,19 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import static com.example.oscarapp.activity.BoasVindasActivity.salvarDiretorId;
 import static com.example.oscarapp.activity.BoasVindasActivity.salvarDiretorName;
 import static com.example.oscarapp.activity.BoasVindasActivity.salvarFilme;
-//import static com.example.oscarapp.activity.BoasVindasActivity.salvarDiretor;
 
 public class ConfirmarActivity extends AppCompatActivity {
 
     TextView Diretor, Filme;
-    Button btnConfirmar;
+    Button btnConfirmar,btnVolta;
+    EditText text;
 
     String email;
     public String nomediretor = "1";
     public String filme =  "2";
 
-    FirebaseDatabase firebaseDatabase;
+    Firebase meuFire;
+//    FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
     @Override
@@ -50,6 +52,13 @@ public class ConfirmarActivity extends AppCompatActivity {
         Diretor = (TextView) findViewById(R.id.txtDiretor);
         Filme = (TextView) findViewById(R.id.txtFilme);
         btnConfirmar = (Button) findViewById(R.id.btnConfirmar);
+        btnVolta = (Button) findViewById(R.id.btnVolta);
+        text = (EditText)findViewById(R.id.token_validar);
+
+        FirebaseApp.initializeApp(ConfirmarActivity.this);
+        Firebase.setAndroidContext(ConfirmarActivity.this);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        meuFire = new Firebase( "https://oscarapp-cba97-default-rtdb.firebaseio.com/");
 
         Intent intentR = getIntent();
         Bundle paramR = intentR.getExtras();
@@ -73,39 +82,58 @@ public class ConfirmarActivity extends AppCompatActivity {
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validar_voto();
+
+                String token_validar = text.getText().toString();
+
+                int token_validar_int = Integer.parseInt(token_validar);
+
+                String uid = FirebaseAuth.getInstance().getUid();
+                int valuee = Integer.parseInt(uid.replaceAll("[^0-9]", ""));
+
+                // below, %02d says to java that I want my integer to be formatted as a 2 digit representation
+                String temp = String.format("%2d", valuee);
+                // and if you want to do the reverse
+                int i = Integer.parseInt(temp);
+
+                long num = i;
+                int n = 2;
+                long token_real = (long) (num / Math.pow(10, Math.floor(Math.log10(num)) - n + 1));
+
+                if(token_real == token_validar_int) {
+
+                    int token_int = (int) token_real;
+                    String uidd = FirebaseAuth.getInstance().getUid();
+                    Usuario usuario = new Usuario(uidd, email, token_int, nomediretor, filme);
+
+                    FirebaseFirestore.getInstance().collection("usuario").document(uid).set(usuario);
+                    FirebaseFirestore.getInstance().collection("usuario").document(uidd).set(usuario);
+                    if(salvarFilme.getNome() != null && salvarDiretorName.getNome() != null){
+                        validar_voto();
+                    }else {
+                        alert("Favor Selecionar Diretor e Filme.");
+                    }
+                }else {
+                    alert("Token Invalido");
+                }
+            }
+        });
+
+        btnVolta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                voltarInicio();
             }
         });
 
 
     }
 
+    public void voltarInicio(){
+        Intent i = new Intent(ConfirmarActivity.this, BoasVindasActivity.class);
+        startActivity(i);
+    }
+
     public void validar_voto(){
-
-        EditText text = (EditText)findViewById(R.id.token_validar);
-        String token_validar = text.getText().toString();
-
-        int token_validar_int = Integer.parseInt(token_validar);
-
-        String uid = FirebaseAuth.getInstance().getUid();
-        int valuee = Integer.parseInt(uid.replaceAll("[^0-9]", ""));
-
-        // below, %02d says to java that I want my integer to be formatted as a 2 digit representation
-        String temp = String.format("%2d", valuee);
-        // and if you want to do the reverse
-        int i = Integer.parseInt(temp);
-
-        long num = i;
-        int n = 2;
-        long token_real = (long) (num / Math.pow(10, Math.floor(Math.log10(num)) - n + 1));
-
-        if(token_real == token_validar_int){
-            int token_int = (int) token_real;
-            String uidd = FirebaseAuth.getInstance().getUid();
-            Usuario usuario =  new Usuario(uidd,email,token_int,nomediretor,filme);
-
-            FirebaseFirestore.getInstance().collection("usuario").document(uid).set(usuario);
-            FirebaseFirestore.getInstance().collection("usuario").document(uidd).set(usuario);
 
             AlertDialog.Builder magBox = new AlertDialog.Builder(this);
             magBox.setTitle("Confirmando...");
@@ -114,27 +142,14 @@ public class ConfirmarActivity extends AppCompatActivity {
             magBox.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    FirebaseApp.initializeApp(ConfirmarActivity.this);
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference();
-                    String uId = FirebaseAuth.getInstance().getUid();
-                    int valuee = Integer.parseInt(uid.replaceAll("[^0-9]", ""));
-
-                    // below, %02d says to java that I want my integer to be formatted as a 2 digit representation
-                    String temp = String.format("%2d", valuee);
-                    // and if you want to do the reverse
-                    int i = Integer.parseInt(temp);
-
-                    long num = i;
-                    int token_real = (int) (num / Math.pow(10, Math.floor(Math.log10(num)) - n + 1));
+//                    Firebase fb = meuFire.child("Voto");
                     Voto vt = new Voto();
-                    vt.setUuid(uId.toString());
-                    vt.setToken(token_real);
-                    vt.setUsername(email.toString());
-                    vt.setVoto_diretor(nomediretor.toString());
-                    vt.setVoto_filme(filme.toString());
-                    databaseReference.child("Voto").child(vt.getUuid()).setValue(vt);
-                        alert("ACERTOU O TOKEN! VALIDAMOS SEU VOTO");
+                    vt.setToken(Integer.valueOf(text.getText().toString()));
+                    vt.setVoto_diretor(String.valueOf(salvarDiretorName.getNome()));
+                    vt.setVoto_filme(String.valueOf(salvarFilme.getNome()));
+                    databaseReference.child("Voto").child(vt.getToken().toString()).setValue(vt);
+                        alert("Voto Realizado com Sucesso!!");
+                        voltarInicio();
                     }
             });
             magBox.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -144,9 +159,7 @@ public class ConfirmarActivity extends AppCompatActivity {
                 }
             });
             magBox.show();
-        }else {
-            alert("Errou");
-        }
+
 
     }
 

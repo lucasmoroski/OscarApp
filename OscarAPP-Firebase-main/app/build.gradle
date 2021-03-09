@@ -36,25 +36,25 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation platform('com.google.firebase:firebase-bom:26.5.0')
-    implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.8.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.2'
-    implementation 'com.google.firebase:firebase-firestore:22.1.1'
-    implementation 'com.google.firebase:firebase-database:19.3.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    // Import the BoM for the Firebase platform
+
+    implementation 'com.google.firebase:firebase-firestore:22.1.1'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
     implementation platform('com.google.firebase:firebase-bom:26.5.0')
-    // Declare the dependency for the Cloud Firestore library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.firebase:firebase-client-android:2.5.2'
+
+
 
 
     compile('com.github.clans:fab:1.6.4')

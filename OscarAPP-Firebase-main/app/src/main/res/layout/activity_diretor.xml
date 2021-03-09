@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="86dp"
-        android:text="Validar Voto"
+        android:layout_marginBottom="170dp"
+        android:text="Indicar Diretor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

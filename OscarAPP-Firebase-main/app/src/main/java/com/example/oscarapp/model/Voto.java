@@ -2,18 +2,10 @@ package com.example.oscarapp.model;
 
 public class Voto {
 
-    private String uuid, voto_diretor, voto_filme, username;
+    private String voto_diretor, voto_filme;
     private Integer token;
 
     public Voto() {
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public String getVoto_diretor() {
@@ -30,14 +22,6 @@ public class Voto {
 
     public void setVoto_filme(String voto_filme) {
         this.voto_filme = voto_filme;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public Integer getToken() {

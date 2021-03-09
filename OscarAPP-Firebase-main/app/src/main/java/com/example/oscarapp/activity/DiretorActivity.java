@@ -85,7 +85,6 @@ public class DiretorActivity extends AppCompatActivity {
 
                     radioGroup.addView(radio);
                 }
-
             }
 
             @Override
@@ -121,7 +120,28 @@ public class DiretorActivity extends AppCompatActivity {
                 param.putInt("id",rescolhaD);
                 param.putString("nome", salvarDiretorName.getNome());
 
-/*
+                intent.putExtras(param);
+                startActivity(intent);
+
+            }
+        });
+
+
+    }
+
+    private void startComponent() {
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroupid);
+        txt = (TextView) findViewById(R.id.teste);
+        escolhaD = (TextView) findViewById(R.id.escolhaDire);
+        btnValida = (Button) findViewById(R.id.btnValida);
+    }
+
+    private void alert(String s) {
+        Toast.makeText(DiretorActivity.this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    private void iniciaDiretor() {
+        /*
                 String uid = FirebaseAuth.getInstance().getUid();
 
                 FirebaseFirestore.getInstance().collection("usuario").document(uid).get().
@@ -147,28 +167,6 @@ public class DiretorActivity extends AppCompatActivity {
                 Integer voto_diretor = 0;
                 Usuario usuario =  new Usuario(uid,email,token,rescolhaD);
 */
-                intent.putExtras(param);
-                startActivity(intent);
-
-            }
-        });
-
-
-    }
-
-    private void startComponent() {
-//        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroupid);
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroupid);
-        txt = (TextView) findViewById(R.id.teste);
-        escolhaD = (TextView) findViewById(R.id.escolhaDire);
-        btnValida = (Button) findViewById(R.id.btnValida);
-    }
-
-    private void alert(String s) {
-        Toast.makeText(DiretorActivity.this, s, Toast.LENGTH_SHORT).show();
-    }
-
-    private void iniciaDiretor() {
         String urlPrincipal = "http://wecodecorp.com.br/ufpr/diretor";
         RequestQueue requestQ = Volley.newRequestQueue(DiretorActivity.this);
         JsonObjectRequest stringR = new JsonObjectRequest(Request.Method.GET, urlPrincipal, null, new Response.Listener<JSONObject>() {

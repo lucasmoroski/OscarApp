@@ -9,11 +9,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rViewListaFilme"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="363dp"
+        android:layout_height="523dp"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,11 +21,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:layout_marginBottom="78dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
         android:text="FILMES"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="33sp"
         android:textStyle="bold"
