@@ -9,7 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.oscarapp.Filme;
 import com.example.oscarapp.R;
+import com.example.oscarapp.model.Diretor;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,13 +23,18 @@ import java.util.Scanner;
 
 public class BoasVindasActivity extends AppCompatActivity {
 
+    public static Filme salvarFilme;
+    public static int salvarDiretorId;
+    public static Diretor salvarDiretorName;
     private  static final  String KEY_TITLE = "token";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boas_vindas);
-
+        salvarDiretorId = 0;
+        salvarDiretorName = new Diretor();
+        salvarFilme = new Filme();
         String uid = FirebaseAuth.getInstance().getUid();
         int valuee = Integer.parseInt(uid.replaceAll("[^0-9]", ""));
 

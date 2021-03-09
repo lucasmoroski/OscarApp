@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.oscarapp.RecyclerItemClickListener;
 import com.example.oscarapp.adapter.ListaFilmeAdapter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,7 +37,7 @@ public class ListaFilme extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView teste;
     ListaFilmeAdapter auxAdapter;
-    public List<Filme> itemList = new ArrayList<>();
+    public static List<Filme> itemList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,33 @@ public class ListaFilme extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        getApplicationContext(),
+                        recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                android.content.Intent it = new Intent(ListaFilme.this, DetalheFilme.class);
+                                Bundle params =new Bundle();
+                                params.putInt("Filmes", position);
+                                it.putExtras(params);
+                                startActivity(it);
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            }
+                        }
+                )
+        );
 
         String urlCompleta = "http://wecodecorp.com.br/ufpr/filme";
 

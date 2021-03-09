@@ -7,31 +7,57 @@
     android:background="@drawable/fundo"
     tools:context=".activity.DetalheFilme">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rViewDetalheFilme"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="34dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDetalhe" />
-
-    <TextView
-        android:id="@+id/textViewDetalhe"
+    <ImageView
+        android:id="@+id/imagemDetalhe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:layout_marginBottom="112dp"
-        android:text=""
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="68dp"
+        app:layout_constraintStart_toStartOf="@+id/textoDetalheNome"
+        app:layout_constraintTop_toBottomOf="@+id/textoDetalheNome"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textoDetalheNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="97dp"
+        android:layout_weight="1"
+        android:text="TextView"
         android:textColor="@color/white"
-        android:textSize="33sp"
+        android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rViewDetalheFilme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textoDetalheGenero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="97dp"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/imagemDetalhe"
+        app:layout_constraintTop_toBottomOf="@+id/imagemDetalhe" />
+
+    <Button
+        android:id="@+id/btnVotoFilme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/buttonshape"
+        app:backgroundTint="@color/black"
+        android:src="@drawable/buttonshape"
+        android:text="Confirmar"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

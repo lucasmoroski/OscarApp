@@ -4,6 +4,9 @@ public class Diretor {
     private int id;
     String nome;
 
+    public Diretor() {
+    }
+
     public int getId() {
         return id;
     }

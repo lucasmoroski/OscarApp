@@ -69,11 +69,26 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             String uid = FirebaseAuth.getInstance().getUid();
                             String username = emailUser.getText().toString().trim();
-                            Random aleatorio = new Random();
-                            int valor = aleatorio.nextInt(100) + 1;
-                            System.out.println("Número gerado: " + valor);
-                            Integer token = valor;
-                            Usuario usuario =  new Usuario(uid,username,token);
+
+
+                            int valuee = Integer.parseInt(uid.replaceAll("[^0-9]", ""));
+
+                            // below, %02d says to java that I want my integer to be formatted as a 2 digit representation
+                            String temp = String.format("%2d", valuee);
+                            // and if you want to do the reverse
+                            int in = Integer.parseInt(temp);
+
+                            long num = in;
+                            int n = 2;
+
+                            long token_real = (long) (num / Math.pow(10, Math.floor(Math.log10(num)) - n + 1));
+                            int token_int = (int) token_real;
+
+                            Integer token = 0;
+                            String diretor = "sem voto";
+                            String filme = "sem voto";
+                            Usuario usuario =  new Usuario(uid,username,token_int,diretor,filme);
+                            //  FirebaseFirestore.getInstance().collection("teste10").add(usuario);
                             FirebaseFirestore.getInstance().collection("usuario").document(uid).set(usuario);
                             Intent i = new Intent(LoginActivity.this, BoasVindasActivity.class);
                             startActivity(i);

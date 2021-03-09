@@ -1,5 +1,6 @@
 package com.example.oscarapp.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.assist.AssistStructure;
@@ -25,6 +26,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.oscarapp.helper.JsonPlaceHolderApi;
 import com.example.oscarapp.model.Diretor;
+import com.example.oscarapp.model.Usuario;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import org.json.JSONArray;
@@ -38,12 +45,16 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.example.oscarapp.activity.BoasVindasActivity.salvarDiretorId;
+import static com.example.oscarapp.activity.BoasVindasActivity.salvarDiretorName;
+
 
 public class DiretorActivity extends AppCompatActivity {
 
     RadioGroup radioGroup;
     TextView txt,escolhaD;
     Button btnValida;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +101,8 @@ public class DiretorActivity extends AppCompatActivity {
                 int idradio = radioGroup.getCheckedRadioButtonId();
                 RadioButton radioescolhaD = (RadioButton) findViewById(idradio);
                 int rescolhaD = radioescolhaD.getId();
+                salvarDiretorId = radioescolhaD.getId();
+                salvarDiretorName.setNome(radioescolhaD.getText().toString());
 //                escolhaD.setText(""+rescolhaD);
                 escolhaD.setText(radioescolhaD.getText().toString());
             }
@@ -106,8 +119,34 @@ public class DiretorActivity extends AppCompatActivity {
                 Bundle param = new Bundle();
 
                 param.putInt("id",rescolhaD);
-                param.putString("nome", nomeD);
+                param.putString("nome", salvarDiretorName.getNome());
 
+/*
+                String uid = FirebaseAuth.getInstance().getUid();
+
+                FirebaseFirestore.getInstance().collection("usuario").document(uid).get().
+                        addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if(documentSnapshot.exists()){
+                                    email = (String) documentSnapshot.get("usuario");
+
+                                }else {
+
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
+               Integer token = 0;
+                Integer voto_diretor = 0;
+                Usuario usuario =  new Usuario(uid,email,token,rescolhaD);
+*/
                 intent.putExtras(param);
                 startActivity(intent);
 

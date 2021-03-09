@@ -1,6 +1,7 @@
 package com.example.oscarapp.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -25,13 +26,13 @@ public class DetalheFilmeAdapter extends RecyclerView.Adapter<VHolderDetalheFilm
     @NonNull
     @Override
     public VHolderDetalheFilme onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VHolderDetalheFilme(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.detalhecell, parent, false));
+        View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.detalhecell, parent, false);
+        return new VHolderDetalheFilme(listItem);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VHolderDetalheFilme holder, int position) {
-        Filme filme = detalheFilmeAdapter.get(holder.getAdapterPosition());
+        Filme filme = detalheFilmeAdapter.get(position);
 
         holder.textoDetalheNome.setText("Nome: \n" + filme.getNome());
         holder.textoDetalheGenero.setText("Genero: \n" + filme.getGenero());
